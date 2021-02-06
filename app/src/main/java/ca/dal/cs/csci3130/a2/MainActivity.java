@@ -1,5 +1,6 @@
 package ca.dal.cs.csci3130.a2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected boolean isValidEmailAddress(String emailAddress) {
         //your business logic goes here!
-        if(emailAddress.contains("@dal.ca")){
+        if(emailAddress.contains("@dal.ca")){ //only accept dal student emails
             return true;
         }
         return false;
@@ -66,6 +67,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void switch2WelcomeWindow(String userName, String emailAddress) {
         //your business logic goes here!
+//        if(isValidEmailAddress(emailAddress) == true && isAlphanumericUserName(userName) == true){
+//
+//        }
     }
 
     protected void saveUserNameToFirebase(String userName) {
@@ -88,33 +92,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String emailAddress = getEmailAddress();
         String errorMessage = new String();
 
-        if (isEmptyUserName(userName)) {
+//        Intent switchIntent = new Intent (this, WelcomeActivity.class);
+//        switchIntent.putExtra(WELCOME_MESSAGE, "HELLO");
+//                startActivity(switchIntent);
+
+        if (isEmptyUserName(userName)){
             errorMessage = getResources().getString(R.string.EMPTY_USER_NAME);
         }
-
         if(!(isAlphanumericUserName(userName))) {
             errorMessage = getResources().getString(R.string.NON_ALPHA_NUMERIC_USER_NAME);
-        } else{
-            errorMessage = "";
         }
-
-        if(isValidEmailAddress(emailAddress)){
-            errorMessage = "";
-        }else{
+        if (!(isValidEmailAddress(emailAddress))){
             errorMessage = getResources().getString(R.string.INVALID_EMAIL_ADDRESS);
         }
-        
+
 
         //check for valid user name and valid email email address
 
         if (errorMessage.isEmpty()) {
             //no errors were found!
             //much of the business logic goes here!
+
             if(isAlphanumericUserName(userName)){
-                setStatusMessage(getResources().getString(R.string.ALPHA_NUMERIC_USER_NAME));
+                setStatusMessage(getResources().getString(R.string.EMPTY_STRING));
             }
             if(isValidEmailAddress(emailAddress)){
-                setStatusMessage(getResources().getString((R.string.VALID_EMAIL_ADDRESS)));
+                setStatusMessage(getResources().getString((R.string.EMPTY_STRING)));
             }
 
         } else {

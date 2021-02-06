@@ -62,7 +62,7 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.emailAddress)).perform(typeText("abc.123@dal.ca"));
         onView(withId(R.id.userName)).perform(typeText("abc123"));
         onView(withId(R.id.registerButton)).perform(click());
-        onView(withId(R.id.statusLabel)).check(matches(withText(R.string.ALPHA_NUMERIC_USER_NAME)));
+        onView(withId(R.id.statusLabel)).check(matches(withText(R.string.EMPTY_STRING)));
     }
 
     /*** AT-III**/
@@ -80,7 +80,7 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.userName)).perform(typeText("abc123"));
         onView(withId(R.id.emailAddress)).perform(typeText("abc123@dal.ca"));
         onView(withId(R.id.registerButton)).perform(click());
-        onView(withId(R.id.statusLabel)).check(matches(withText(R.string.VALID_EMAIL_ADDRESS)));
+        onView(withId(R.id.statusLabel)).check(matches(withText(R.string.EMPTY_STRING)));
     }
 
     /*** AT-IV**/
