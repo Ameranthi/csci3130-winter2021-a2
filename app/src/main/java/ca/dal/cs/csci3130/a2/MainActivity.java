@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.IgnoreExtraProperties;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -17,6 +18,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     FirebaseDatabase database = null;
     DatabaseReference userNameRef = null;
     DatabaseReference emailRef = null;
+    DatabaseReference mDatabase = null;
+
+
+    @IgnoreExtraProperties
+    public class User {
+
+        public String username;
+        public String email;
+
+        public User() {
+        }
+
+        public User(String username, String email) {
+            this.username = getUserName();
+            this.email = getEmailAddress();
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void initializeDatabase() {
         //initialize your database and related fields here
+        mDatabase = FirebaseDatabase.getInstance().getReference("");
+
     }
 
     protected String getUserName() {
@@ -76,10 +97,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void saveUserNameToFirebase(String userName) {
         //save user name to Firebase
+        User u = new User(userName, getEmailAddress());
+        mDatabase.child("users").child(String.valueOf(System.currentTimeMillis())).setValue(u);
+
     }
 
     protected void saveEmailToFirebase(String emailAddress) {
         //save email to Firebase
+        //save user name to Firebase
+        User u = new User(getUserName(), emailAddress);
+        mDatabase.child("users").child(String.valueOf(System.currentTimeMillis())).setValue(u);
+
     }
 
     protected void setStatusMessage(String message) {
@@ -93,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String userName = getUserName();
         String emailAddress = getEmailAddress();
         String errorMessage = new String();
+
 
         if (isEmptyUserName(userName)){
             errorMessage = getResources().getString(R.string.EMPTY_USER_NAME);
@@ -122,8 +151,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             setStatusMessage(errorMessage);
         }
+        saveEmailToFirebase(emailAddress);
+        saveUserNameToFirebase(userName);
+        //switch2WelcomeWindow(userName, emailAddress);//COMMENT THIS OUT TO RUN THE REST OF THE TESTs because the set status message function doesnt carry over to the next screen.
 
-        switch2WelcomeWindow(userName, emailAddress);//COMMENT THIS OUT TO RUN THE REST OF THE TESTs because the set status message function doesnt carry over to the next screen.
-
+        
     }
 }
