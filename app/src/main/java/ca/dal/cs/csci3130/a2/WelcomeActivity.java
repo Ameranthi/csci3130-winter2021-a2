@@ -1,5 +1,6 @@
 package ca.dal.cs.csci3130.a2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,9 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
         //initializing the database instance and others!
         this.initializeDatabase();
+
+//        Intent myIntent = getIntent();
+//        setStatusMessage(myIntent.getExtras(MainActivity.WELCOME_MESSAGE));
     }
 
 
