@@ -53,7 +53,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void initializeDatabase() {
         //initialize your database and related fields here
-        mDatabase = FirebaseDatabase.getInstance().getReference("");
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://a2-3130-cc88e-default-rtdb.firebaseio.com/");
+
+
+        //mDatabase = DatabaseReference.getInstance("https://a2-3130-cc88e-default-rtdb.firebaseio.com/");
 
     }
 
@@ -155,6 +158,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         saveUserNameToFirebase(userName);
         //switch2WelcomeWindow(userName, emailAddress);//COMMENT THIS OUT TO RUN THE REST OF THE TESTs because the set status message function doesnt carry over to the next screen.
 
-        
+
     }
 }
