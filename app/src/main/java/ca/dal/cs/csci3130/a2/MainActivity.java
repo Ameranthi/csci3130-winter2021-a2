@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else{
             errorMessage = getResources().getString(R.string.INVALID_EMAIL_ADDRESS);
         }
+        
 
         //check for valid user name and valid email email address
 
