@@ -67,9 +67,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void switch2WelcomeWindow(String userName, String emailAddress) {
         //your business logic goes here!
-//        if(isValidEmailAddress(emailAddress) == true && isAlphanumericUserName(userName) == true){
-//
-//        }
+        if (isValidEmailAddress(emailAddress) == true && isAlphanumericUserName(userName) == true) {
+            Intent switchIntent = new Intent(this, WelcomeActivity.class);
+            switchIntent.putExtra(WELCOME_MESSAGE, "hellooooo");
+            startActivity(switchIntent);
+        }
     }
 
     protected void saveUserNameToFirebase(String userName) {
@@ -92,20 +94,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String emailAddress = getEmailAddress();
         String errorMessage = new String();
 
-//        Intent switchIntent = new Intent (this, WelcomeActivity.class);
-//        switchIntent.putExtra(WELCOME_MESSAGE, "HELLO");
-//                startActivity(switchIntent);
-
         if (isEmptyUserName(userName)){
             errorMessage = getResources().getString(R.string.EMPTY_USER_NAME);
         }
+
         if(!(isAlphanumericUserName(userName))) {
             errorMessage = getResources().getString(R.string.NON_ALPHA_NUMERIC_USER_NAME);
         }
         if (!(isValidEmailAddress(emailAddress))){
             errorMessage = getResources().getString(R.string.INVALID_EMAIL_ADDRESS);
         }
-
 
         //check for valid user name and valid email email address
 
@@ -115,13 +113,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if(isAlphanumericUserName(userName)){
                 setStatusMessage(getResources().getString(R.string.EMPTY_STRING));
+
             }
             if(isValidEmailAddress(emailAddress)){
                 setStatusMessage(getResources().getString((R.string.EMPTY_STRING)));
             }
 
         } else {
-            setStatusMessage(errorMessage);
+            switch2WelcomeWindow(userName, emailAddress);
         }
+
+//    setStatusMessage(errorMessage); //UNCOMMENT THIS TO RUN THE CHANGE WINDOW TEST and PASS
+
     }
 }
