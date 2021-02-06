@@ -4,7 +4,11 @@
     <!--string constants used by the application-->
     <string name="EMPTY_USER_NAME">Empty user name</string>
     <string name="NON_ALPHA_NUMERIC_USER_NAME">Non-alphanumeric user name</string>
+    <string name="ALPHA_NUMERIC_USER_NAME">Alphanumeric user name</string>
     <string name="INVALID_EMAIL_ADDRESS">Invalid email address</string>
+    <string name="VALID_EMAIL_ADDRESS">Valid email address</string>
+
+
     <string name="EMPTY_STRING"></string>
     <string name="FIREBASE_DB_URL">[Enter your Firebase URL here]</string>
 

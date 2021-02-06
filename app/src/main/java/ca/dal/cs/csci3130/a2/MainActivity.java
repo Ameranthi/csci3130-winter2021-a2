@@ -50,12 +50,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     protected boolean isAlphanumericUserName(String userName) {
-        //your business logic goes here!
+        if(userName.matches("^[a-zA-Z0-9]+$")){
+            return true;
+        }
         return false;
     }
 
     protected boolean isValidEmailAddress(String emailAddress) {
         //your business logic goes here!
+        if(emailAddress.contains("@dal.ca")){
+            return true;
+        }
         return false;
     }
 
@@ -87,11 +92,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             errorMessage = getResources().getString(R.string.EMPTY_USER_NAME);
         }
 
+        if(!(isAlphanumericUserName(userName))) {
+            errorMessage = getResources().getString(R.string.NON_ALPHA_NUMERIC_USER_NAME);
+        } else{
+            errorMessage = "";
+        }
+
+        if(isValidEmailAddress(emailAddress)){
+            errorMessage = "";
+        }else{
+            errorMessage = getResources().getString(R.string.INVALID_EMAIL_ADDRESS);
+        }
+
         //check for valid user name and valid email email address
 
         if (errorMessage.isEmpty()) {
             //no errors were found!
             //much of the business logic goes here!
+            if(isAlphanumericUserName(userName)){
+                setStatusMessage(getResources().getString(R.string.ALPHA_NUMERIC_USER_NAME));
+            }
+            if(isValidEmailAddress(emailAddress)){
+                setStatusMessage(getResources().getString((R.string.VALID_EMAIL_ADDRESS)));
+            }
+
         } else {
             setStatusMessage(errorMessage);
         }
